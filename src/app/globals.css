@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3f6f7;
+  --foreground: #0b1f2a;
+  --muted: #4d606c;
+  --surface: #ffffff;
+  --line: #c9d5db;
+  --accent: #0f6e6a;
+  --accent-deep: #0a4f4c;
+  --sea: #1c3d4f;
+  --foam: #d7e8e6;
+  --warn: #8a5a12;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-sea: var(--sea);
+  --color-foam: var(--foam);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 480px at 10% -10%, #d7e8e6 0%, transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, #c5d8e2 0%, transparent 50%),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, white);
 }

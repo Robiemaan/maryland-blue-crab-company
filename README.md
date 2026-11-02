@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Maryland Blue Crab Company - US commercial site
 
-## Getting Started
+B2B wholesale website for Maryland Blue Crab Company.
 
-First, run the development server:
+Audience: US seafood wholesalers and distributors (not consumer retail).
+
+Product messaging encoded on the site:
+
+- Italian invasive blue crab from Mediterranean waters
+- Processed with [Tagliapietra](https://www.tagliapietrasrl.com/)
+- Better quality, cleaner waters, and cheaper than US blue crab
+- Pricing / Incoterms / certifications are not invented here - shared on inquiry
+
+## Stack
+
+- Next.js 15 (App Router) with static export
+- TypeScript + Tailwind CSS v4
+- Deploy preview via GitHub Pages
+
+## Local run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000/maryland-blue-crab-company/` (basePath matches GitHub Pages).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run at site root locally:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+PAGES_BASE_PATH= npm run dev
+```
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Static files land in `out/`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy preview (GitHub Pages)
 
-## Deploy on Vercel
+1. Push `main` to the GitHub repo.
+2. Repo Settings → Pages → Source: **GitHub Actions**.
+3. The `Deploy GitHub Pages` workflow builds the static export and publishes it.
+4. Preview URL (project pages):
+   `https://<github-user>.github.io/maryland-blue-crab-company/`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Manual re-deploy: Actions → Deploy GitHub Pages → Run workflow.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Routes
+
+| Path | Purpose |
+| --- | --- |
+| `/` | Homepage shell + approved positioning |
+| `/product/` | Spec-oriented product overview |
+| `/inquiry/` | Lead-capture form shell (client-side only until CRM wired) |
+
+## Out of scope (for now)
+
+- Final brand system
+- CRM / email delivery for inquiries
+- Public pricing, Incoterms, or compliance claims
