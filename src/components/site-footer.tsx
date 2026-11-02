@@ -15,7 +15,7 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-col gap-2 text-sm">
           <Link href="/product/" className="hover:underline">
-            Product overview
+            Product & origin
           </Link>
           <Link href="/inquiry/" className="hover:underline">
             Request supply conversation

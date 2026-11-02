@@ -16,11 +16,14 @@ Product messaging encoded on the site:
 - Next.js 15 (App Router) with static export
 - TypeScript + Tailwind CSS v4
 - Deploy preview via GitHub Pages
+- Inquiry delivery via Formspree-compatible endpoint (static-host friendly)
 
 ## Local run
 
 ```bash
 npm install
+cp .env.example .env.local
+# set NEXT_PUBLIC_INQUIRY_ENDPOINT to your Formspree form URL
 npm run dev
 ```
 
@@ -40,6 +43,35 @@ npm run build
 
 Static files land in `out/`.
 
+## Inquiry / lead capture
+
+The `/inquiry/` form POSTs JSON to `NEXT_PUBLIC_INQUIRY_ENDPOINT` (Formspree or compatible).
+
+Required fields: company, contact name, work email. Optional: phone, destination, volume, notes.
+
+Spam basics:
+
+- Honeypot field (`website` / `_gotcha`) - bots that fill it get a silent success and no upstream POST
+- Client cooldown (60s) between successful submits in the same browser session
+
+Success copy confirms a human follow-up. It never invents pricing.
+
+### Chief of Staff setup (required for live inbox delivery)
+
+1. Create a Formspree form (or equivalent) that emails the **founder inbox**.
+2. In Formspree notification settings, add Sales / Outreach as a CC **or** set `NEXT_PUBLIC_INQUIRY_SALES_CC`.
+3. Add GitHub Actions repository secrets on `Robiemaan/maryland-blue-crab-company`:
+   - `NEXT_PUBLIC_INQUIRY_ENDPOINT` = `https://formspree.io/f/<id>`
+   - `NEXT_PUBLIC_INQUIRY_SALES_CC` = sales inbox (optional if Formspree UI already CCs Sales)
+4. Re-run **Deploy GitHub Pages** so the static build inlines the public endpoint.
+5. Smoke-test from the preview `/inquiry/` page and confirm the founder (+ Sales) receive the lead email.
+
+Local check without a real Formspree account:
+
+```bash
+npm run verify:inquiry
+```
+
 ## Deploy preview (GitHub Pages)
 
 1. Push `main` to the GitHub repo.
@@ -55,11 +87,10 @@ Manual re-deploy: Actions → Deploy GitHub Pages → Run workflow.
 | Path | Purpose |
 | --- | --- |
 | `/` | Homepage shell + approved positioning |
-| `/product/` | Spec-oriented product overview |
-| `/inquiry/` | Lead-capture form shell (client-side only until CRM wired) |
+| `/product/` | Product + origin brief (specs, Tagliapietra, sources, inquiry CTA) |
+| `/inquiry/` | Wholesaler inquiry form → founder inbox endpoint |
 
 ## Out of scope (for now)
 
 - Final brand system
-- CRM / email delivery for inquiries
 - Public pricing, Incoterms, or compliance claims
